@@ -33,6 +33,6 @@ function prompt_string {
 }
 
 #This is the string that will be printed out to the console
-PS1="\$(prompt_string):$ "
+PS1="\$(prompt_string)$ "
 
 
