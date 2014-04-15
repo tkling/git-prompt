@@ -1,35 +1,38 @@
-EDITED_BRANCH_COLOR=" \[\e[0;31m\]"
-CLEAN_BRANCH_COLOR=" \[\e[0;32m\]"
-NORMAL_COLOR='\[\e[0m\]'
+#!/bin/sh
+red='\033[33;31m';
+green='\033[33;32m';
+
+EDITED_BRANCH_COLOR=$red
+CLEAN_BRANCH_COLOR=$green
+NORMAL_COLOR='\033[33;0m'
 
 function parse_git_branch {
   ref=$(git symbolic-ref --short HEAD 2> /dev/null) || return
-  #echo "(${ref})"
- # echo "\$()"
-  echo "[${ref} $(cleanliness_color)] "
+  echo -e "[$(cleanliness_color)${ref}${NORMAL_COLOR}]"
 }
 
 function cleanliness_color {
   status=$(git status | sed -n '/\(working directory clean\)/p') || return
   if [ -n "${status}" ]; then
-    echo "clean" 
-    # echo ${CLEAN_BRANCH_COLOR}
+    echo -e "${CLEAN_BRANCH_COLOR}"
   else
-    echo "dirty" 
-    # echo ${EDITED_BRANCH_COLOR}
+    echo -e "${EDITED_BRANCH_COLOR}"
   fi
-}
-
-function normal_color {
-  echo "${NORMAL_COLOR}"
 }
 
 function current_dir_name {
   echo "${PWD##*/}"
 }
 
-PS1="\$(date +%H:%M) \$(whoami) \$(parse_git_branch)$(normal_color)\$(current_dir_name):$ "
+function current_time {
+  echo $(date +%H:%M)
+}
 
-#PS1='`date +%H:%M` `whoami` \[`cleanliness_color`\]`parse_git_branch``normal_color``current_dir_name`:$ '
-#PS1="\$(__git_ps1 \"(%s)\")"
+function prompt_string {
+  echo -e "${NORMAL_COLOR}$(current_time) $(whoami) $(parse_git_branch) $(current_dir_name)"
+}
+
+#This is the string that will be printed out to the console
+PS1="\$(prompt_string):$ "
+
 
