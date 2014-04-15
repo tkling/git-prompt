@@ -1,7 +1,7 @@
 git-prompt
 ==========
 
-Copy pasta this script into your user bash profile (usually `~/.profile or ~/.bash_profile), 
+Copy pasta this script into your user bash profile (usually `~/.profile` or `~/.bash_profile`), 
 reload your terminal, and look at your git info!
 
 Only shows git info if you're in a git repo.
