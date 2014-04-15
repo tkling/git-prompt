@@ -10,16 +10,16 @@ function parse_git_branch {
   ref=$(git symbolic-ref --short HEAD 2> /dev/null) || return
   #echo "(${ref})"
  # echo "\$()"
-  echo -e "[${ref} $(cleanliness_color)${NORMAL_COLOR}] "
+  echo -e "[$(cleanliness_color)${ref}${NORMAL_COLOR}] "
 }
 
 function cleanliness_color {
   status=$(git status | sed -n '/\(working directory clean\)/p') || return
   if [ -n "${status}" ]; then
-    echo -e "${green}clean"
+    echo -e "${green}"
     #echo ${CLEAN_BRANCH_COLOR}
   else
-    echo -e "${red}dirty"
+    echo -e "${red}"
     #echo ${EDITED_BRANCH_COLOR}
   fi
 }
