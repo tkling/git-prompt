@@ -3,7 +3,7 @@ red='\033[33;31m';
 green='\033[33;32m';
 
 EDITED_BRANCH_COLOR=$red
-CLEAN_BRANCH_COLOR=$red
+CLEAN_BRANCH_COLOR=$green
 NORMAL_COLOR='\033[33;0m'
 
 function parse_git_branch {
@@ -14,9 +14,9 @@ function parse_git_branch {
 function cleanliness_color {
   status=$(git status | sed -n '/\(working directory clean\)/p') || return
   if [ -n "${status}" ]; then
-    echo -e "${EDITED_BRANCH_COLOR}"
-  else
     echo -e "${CLEAN_BRANCH_COLOR}"
+  else
+    echo -e "${EDITED_BRANCH_COLOR}"
   fi
 }
 
