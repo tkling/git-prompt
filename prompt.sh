@@ -8,7 +8,7 @@ NORMAL_COLOR='\033[33;0m'
 
 function parse_git_branch {
   ref=$(git symbolic-ref --short HEAD 2> /dev/null) || return
-  echo -e "[$(cleanliness_color)${ref}${NORMAL_COLOR}]"
+  echo -e " [$(cleanliness_color)${ref}${NORMAL_COLOR}]"
 }
 
 function cleanliness_color {
@@ -29,7 +29,7 @@ function current_time {
 }
 
 function prompt_string {
-  echo -e "${NORMAL_COLOR}$(current_time) $(whoami) $(parse_git_branch) $(current_dir_name)"
+  echo -e "${NORMAL_COLOR}$(current_time) $(whoami)$(parse_git_branch) $(current_dir_name)"
 }
 
 #This is the string that will be printed out to the console
