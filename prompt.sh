@@ -29,7 +29,7 @@ function current_time {
 }
 
 function prompt_string {
-  echo -e "${NORMAL_COLOR}$(current_time) $(whoami)$(parse_git_branch) $(current_dir_name)"
+  echo -e "${NORMAL_COLOR}$(current_time)$(parse_git_branch) $(current_dir_name)"
 }
 
 #This is the string that will be printed out to the console
