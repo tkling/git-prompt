@@ -8,8 +8,8 @@ CLEAN_BRANCH_COLOR=$green
 NORMAL_COLOR=$normal
 
 function parse_git_branch {
-  repo=$(ls -a | grep '.git$')
-  if [ -n "${repo}" ]; then
+  git status > /dev/null 2>&1
+  if [ $? == 0 ]; then
     ref=$(git symbolic-ref --short HEAD 2> /dev/null) || return
     echo -e " [${ref}]"
   else
@@ -18,8 +18,8 @@ function parse_git_branch {
 }
 
 function cleanliness_color {
-  repo=$(ls -a | grep '.git$')
-  if [ -n "${repo}" ]; then
+  git status > /dev/null 2>&1
+  if [ $? == 0 ]; then
     status=$(git status | sed -n '/\(working directory clean\)/p') || return
     if [ -n "${status}" ]; then
       echo -e $CLEAN_BRANCH_COLOR
@@ -28,7 +28,7 @@ function cleanliness_color {
     fi
   else
     return
-  fi  
+  fi
 }
 
 function current_dir_name {
