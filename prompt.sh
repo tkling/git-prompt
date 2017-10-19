@@ -20,7 +20,14 @@ function parse_git_branch {
 function cleanliness_color {
   git status > /dev/null 2>&1
   if [ $? == 0 ]; then
-    status=$(git status | sed -n '/\(working directory clean\)/p') || return
+    version=$(git --version | awk '{print $3}' | tr '.' '\t' | awk '{print $2}')
+
+    if [ "${version}" -gt 8 ]; then
+      status=$(git status | sed -n '/\(working tree clean\)/p') || return
+    else
+      status=$(git status | sed -n '/\(working directory clean\)/p') || return
+    fi
+
     if [ -n "${status}" ]; then
       echo -e $CLEAN_BRANCH_COLOR
     else
