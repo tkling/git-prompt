@@ -39,7 +39,11 @@ function cleanliness_color {
 }
 
 function current_dir_name {
-  echo -e "${PWD##*/}"
+  if [ "$PWD" == "$HOME" ]; then
+    echo -e "~"
+  else 
+    echo -e "${PWD##*/}"
+  fi
 }
 
 function current_time {
@@ -47,4 +51,4 @@ function current_time {
 }
 
 # This is the string that will be printed out to the console
-PS1='\[${NORMAL_COLOR}\]`current_time` `whoami`\[$(cleanliness_color)\]`parse_git_branch`\[${NORMAL_COLOR}\] `current_dir_name` => '
+PS1='\[${NORMAL_COLOR}\]`current_time` `whoami`\[$(cleanliness_color)\]`parse_git_branch`\[${NORMAL_COLOR}\] `current_dir_name` 🍕 '
